@@ -45,9 +45,17 @@ def getNumberOfIntegers():
   return numberOfIntegers
 
 """This method calculates the sum of squares for a given array of input values."""
-def calculateSumOfSquares(index, sum, inputValues):
-  # Ensure the index lies within appropriate bounds
-  if index < len(inputValues):
+def calculateSumOfSquares(index, sum, numberOfIntegers, inputValues):
+  # Ensure the index lies within the number of integers specified by the user
+  if index < numberOfIntegers:
+
+    # Handle array index errors by checking that the value at the
+    # current index exists
+    try:
+      currentValue = inputValues[index]
+    except IndexError:
+      return sum
+
     # Attempt to convert the current value from a string to an integer
     if inputValues[index].isnumeric():
       currentValue = int(inputValues[index])
@@ -65,7 +73,7 @@ def calculateSumOfSquares(index, sum, inputValues):
     index += 1
 
     # Use recursion to calculate the sum of squares
-    sum = calculateSumOfSquares(index, sum, inputValues)
+    sum = calculateSumOfSquares(index, sum, numberOfIntegers, inputValues)
 
   return sum
 
@@ -84,14 +92,9 @@ def getSumOfSquaresArray(index, numberOfTestCases, sumOfSquaresArray):
     # Split the input string by spaces, store values in the inputValues array
     inputValues = inputString.split()
 
-    # If the length of the inputValues array exceeds numberOfIntegers,
-    # truncate the inputValues array to the specified numberOfIntegers
-    if len(inputValues) > numberOfIntegers:
-      del inputValues[numberOfIntegers:]
-
     # Calculate the sum of squares for the given test case starting with
     # an index of 0, an initial sum of 0, and the inputValues array
-    sum = calculateSumOfSquares(0, 0, inputValues)
+    sum = calculateSumOfSquares(0, 0, numberOfIntegers, inputValues)
 
     # Append the sum of squares for the given test case to sumOfSquaresArray
     sumOfSquaresArray.append(sum)
@@ -106,7 +109,7 @@ def getSumOfSquaresArray(index, numberOfTestCases, sumOfSquaresArray):
 
 """This method prints sumOfSquaresArray to standard output."""
 def printSumOfSquaresArray(index, numberOfTestCases, sumOfSquaresArray):
-    # Ensure the index stays within appropriate bounds
+    # Ensure the index lies within appropriate bounds
   if index < numberOfTestCases:
     # Print the element at the current index in sumOfSquaresArray
     print(sumOfSquaresArray[index])
