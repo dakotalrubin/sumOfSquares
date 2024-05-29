@@ -1,25 +1,27 @@
 # File: sumOfSquares.py
 # Author: Dakota Rubin
-# Date: May 21, 2024
+# Date: May 29, 2024
 
 # ------------------------------------------------------------------------------
 # HELPER METHODS ---------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-"""This method gets the number of test cases to run from user input."""
+"""This method gets the number of test cases to run from user input.
+The default number of test cases for invalid input is 1."""
 def getNumberOfTestCases():
   # Parse standard input for a valid number of test cases to run
   try:
     numberOfTestCases = int(input("Enter the number of test cases " +
       "(1 to 100): "))
   except:
-    print("Please enter a number next time! Program exit.")
-    return
+    print("Please enter a number next time! Now using the default number 1.")
+    numberOfTestCases = 1
 
   # Ensure the specified number of test cases lies within appropriate bounds
   if numberOfTestCases < 1 or numberOfTestCases > 100:
-    print("Please enter a number between 1 and 100 next time! Program exit.")
-    return
+    print("Please enter a number between 1 and 100 next time! Now using the " +
+      "default number 1.")
+    numberOfTestCases = 1
 
   return numberOfTestCases
 
@@ -47,7 +49,8 @@ def calculateSumOfSquares(index, sum, inputValues):
 
   return sum
 
-"""This method builds an array for the computed sum-of-squares values."""
+"""This method builds an array for the computed sum-of-squares values.
+The default number of integers for a given test case for invalid input is 1."""
 def getSumOfSquaresArray(index, numberOfTestCases, sumOfSquaresArray):
   # Ensure the index stays within appropriate bounds
   if index < numberOfTestCases:
@@ -71,6 +74,11 @@ def getSumOfSquaresArray(index, numberOfTestCases, sumOfSquaresArray):
 
     # Split the user's input string by spaces
     inputValues = inputString.split()
+
+    # If the length of the array of input values exceeds numberOfIntegers,
+    # truncate the array of input values to the specified numberOfIntegers
+    if len(inputValues) > numberOfIntegers:
+      del inputValues[numberOfIntegers:]
 
     # Calculate the sum of squares for the given test case starting with
     # an index of 0, an initial sum of 0, and an array of input integers
