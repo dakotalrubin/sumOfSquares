@@ -1,2 +1,2 @@
 # sumOfSquares
-My solution for the HENNGE Admission Challenge
+My solution for finding the sum of integer squares
